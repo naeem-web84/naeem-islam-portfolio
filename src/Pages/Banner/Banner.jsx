@@ -64,7 +64,7 @@ const Banner = () => {
           </motion.h1>
         </div>
 
-        <div className="grid grid-cols-12 gap-6 items-start">
+        <div className="grid grid-cols-12 gap-8 items-start">
 
           {/* PROFILE CARD */}
           <motion.div
@@ -84,8 +84,9 @@ const Banner = () => {
 
               <div className="text-left w-full">
                 <div className="text-sm space-y-3 text-base-content mb-4">
-                  <p className="flex items-center gap-2">
-                    <FaEnvelope className="text-secondary" /> naeemislam.hasan74@gmail.com
+                  <p className="flex items-center gap-1 break-words">
+                    <FaEnvelope className="text-secondary text-sm" />
+                    <span className="break-words">naeemislam.hasan74@gmail.com</span>
                   </p>
                   <p className="flex items-center gap-2">
                     <FaMapMarkerAlt className="text-secondary" /> Bangladesh
@@ -98,7 +99,7 @@ const Banner = () => {
                   </p>
                 </div>
 
-                <div className="flex gap-4 text-black text-sm">
+                <div className="flex flex-wrap gap-4 text-black text-sm">
                   <p className="bg-secondary rounded-xl px-2">HTML</p>
                   <p className="bg-secondary rounded-xl px-2">CSS</p>
                   <p className="bg-secondary rounded-xl px-2">JS</p>
