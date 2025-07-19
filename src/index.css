@@ -1,0 +1,22 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+@plugin "daisyui/theme" {
+  name: "mytheme";
+  default: true;
+
+  /* Primary background - used for main layout background */
+  --color-primary: #1A1E23; /* deep charcoal black */
+
+  /* Secondary - used for buttons, highlights */
+  --color-secondary: #12F7D6; /* neon aqua (your btn-color) */
+
+  /* Accent - for important text, icons, emphasis */
+  --color-accent: #FFFFFF; /* pure white */
+
+  /* Base background - for cards, navbars, secondary sections */
+  --color-base-100: #292F36; /* dark slate gray (bg-two) */
+
+  /* Base content - default text color */
+  --color-base-content: #E2E8F0; /* light grayish-blue (readable text) */
+}
