@@ -16,7 +16,7 @@ import { Typewriter } from "react-simple-typewriter";
 
 const Banner = () => {
   return (
-    <section className="min-h-screen text-base-content max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-12 gap-6">
+    <section className="min-h-screen text-base-content bg-base-100 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-12 gap-6">
 
       {/* LEFT SIDEBAR ICONS - hidden below lg */}
       <div className="hidden lg:flex col-span-1 relative">
