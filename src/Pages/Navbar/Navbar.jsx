@@ -1,82 +1,103 @@
-import { Link, NavLink } from "react-router";
+import React, { useState } from "react";
+import { Link } from "react-scroll";
+import Logo from "../Logo/Logo";
+
+const navLinks = [
+  { name: "Home", to: "hero" },
+  { name: "About", to: "about" },
+  { name: "Skills", to: "skills" },
+  { name: "Projects", to: "projects" },
+  { name: "Contact", to: "contact" },
+];
+
+// Replace with your actual Google Drive direct link
+const directDownloadLink = "https://drive.google.com/uc?export=download&id=1IIkukodcc21zazJIzD4gXQzF-QovmhJl";
 
 const Navbar = () => {
-  const navLinks = (
-    <>
-      <li>
-        <NavLink
-          to="/"
-          className={({ isActive }) =>
-            `btn btn-sm rounded-md px-4 font-semibold border ${
-              isActive
-                ? "bg-secondary text-white border-secondary"
-                : "bg-white text-secondary border-secondary hover:bg-secondary hover:text-white"
-            }`
-          }
-        >
-          Home
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/banner"
-          className={({ isActive }) =>
-            `btn btn-sm rounded-md px-4 font-semibold border ${
-              isActive
-                ? "bg-secondary text-white border-secondary"
-                : "bg-white text-secondary border-secondary hover:bg-secondary hover:text-white"
-            }`
-          }
-        >
-          Banner
-        </NavLink>
-      </li>
-    </>
-  );
+  const [active, setActive] = useState("hero");
+
+  const downloadResume = () => {
+    window.open(directDownloadLink, "_blank");
+  };
 
   return (
-    <div className="navbar bg-primary text-base-content px-4 py-2">
-      {/* Left: Name */}
-      <div className="flex-1 lg:flex-none">
-        <Link to="/" className="text-xl font-bold text-accent">
-          Naeem Islam
-        </Link>
+    <div className="navbar bg-primary text-black px-4 py-2 shadow-md sticky top-0 z-50">
+      {/* Left: Logo */}
+      <div className="flex-1">
+        <Logo />
       </div>
 
-      {/* Center: Nav Links */}
-      <div className="flex-1 flex justify-center">
-        <ul className="menu menu-horizontal px-1 gap-2">{navLinks}</ul>
+      {/* Center: Nav Links (visible on lg only) */}
+      <div className="hidden lg:flex justify-center flex-1">
+        <ul className="menu menu-horizontal gap-2">
+          {navLinks.map((link) => (
+            <li key={link.to}>
+              <Link
+                to={link.to}
+                smooth={true}
+                duration={500}
+                offset={-80}
+                spy={true}
+                onSetActive={() => setActive(link.to)}
+                className={`cursor-pointer btn btn-sm rounded-md px-4 font-semibold border transition-colors duration-200 ${
+                  active === link.to
+                    ? "bg-blue-600 text-white border-blue-600"
+                    : "bg-white text-black border-gray-400 hover:bg-blue-600 hover:text-white hover:border-blue-600"
+                }`}
+              >
+                {link.name}
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
 
-      {/* Right: Resume Download */}
-      <div className="flex-none hidden lg:flex">
-        <a
-          href="/resume.pdf"
-          className="btn btn-sm bg-white text-secondary border-secondary border hover:bg-secondary hover:text-white"
-          download
+      {/* Right: Resume Button (visible on lg only) */}
+      <div className="hidden lg:flex">
+        <button
+          onClick={downloadResume}
+          className="btn btn-sm border border-gray-400 bg-white text-black hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-colors duration-200"
         >
           Download Resume
-        </a>
+        </button>
       </div>
 
-      {/* Mobile Menu */}
-      <div className="lg:hidden dropdown dropdown-end">
-        <label tabIndex={0} className="btn btn-ghost text-accent">
+      {/* Mobile Menu: visible on md and below */}
+      <div className="lg:hidden dropdown dropdown-end ml-auto">
+        <label tabIndex={0} className="btn btn-sm btn-ghost text-secondary hover:text-blue-600">
+          {/* Hamburger Icon */}
           ☰
         </label>
         <ul
           tabIndex={0}
-          className="menu dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 space-y-1"
+          className="menu dropdown-content mt-3 z-[1] p-2 shadow bg-white rounded-box w-52 space-y-1 text-black"
         >
-          {navLinks}
+          {navLinks.map((link) => (
+            <li key={link.to}>
+              <Link
+                to={link.to}
+                smooth={true}
+                duration={500}
+                offset={-80}
+                spy={true}
+                onSetActive={() => setActive(link.to)}
+                className={`btn btn-sm text-left border w-full transition-colors duration-200 ${
+                  active === link.to
+                    ? "bg-blue-600 text-white border-blue-600"
+                    : "bg-white text-black border-gray-400 hover:bg-blue-600 hover:text-white hover:border-blue-600"
+                }`}
+              >
+                {link.name}
+              </Link>
+            </li>
+          ))}
           <li>
-            <a
-              href="/resume.pdf"
-              className="btn btn-sm bg-white text-secondary border-secondary border hover:bg-secondary hover:text-white w-full"
-              download
+            <button
+              onClick={downloadResume}
+              className="btn btn-sm w-full border border-gray-400 bg-white text-black hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-colors duration-200"
             >
               Resume
-            </a>
+            </button>
           </li>
         </ul>
       </div>

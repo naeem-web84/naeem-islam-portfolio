@@ -1,6 +1,7 @@
 import Marquee from "react-fast-marquee";
 import { FaReact, FaHtml5, FaCss3Alt, FaJs, FaNodeJs, FaGithub } from "react-icons/fa";
 import { SiTailwindcss, SiFirebase, SiExpress, SiMongodb } from "react-icons/si";
+import { motion } from 'framer-motion';
 
 const skillsData = [
   { name: "HTML", icon: <FaHtml5 className="text-orange-500 text-5xl" /> },
@@ -18,6 +19,22 @@ const skillsData = [
 const Skills = () => {
   return (
     <section className="min-h-screen flex flex-col justify-center mt-20 max-w-4xl mx-auto px-4">
+
+      {/* Top Decorative Line */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5 }}
+        className="hidden sm:flex flex-col items-center justify-center min-h-[100px] mx-auto mb-14 space-y-2"
+      >
+        <div className="w-5 h-8 rounded-t-[30px] rounded-b-[30px] my-2 bg-black border border-secondary border-2 "><div className='w-1 h-2 bg-secondary ml-1.5 mt-1 rounded'></div></div>
+
+        <div className="w-1 h-1 bg-white rounded-full"></div>
+        <div className="w-1 h-1 bg-white rounded-full"></div>
+        <div className="w-1 h-1 bg-white rounded-full"></div>
+        <div className="w-2 h-2 bg-white rounded-full"></div>
+      </motion.div>
+
       <div className="text-center mb-8">
         <h2 className="text-3xl font-bold text-secondary">Tech Stack</h2>
         <p className="text-accent">Technologies I work with</p>

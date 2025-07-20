@@ -26,18 +26,40 @@ const Banner = () => {
           transition={{ duration: 0.8, delay: 0.5 }}
           className="bg-primary p-2 flex flex-col gap-4 items-center justify-start rounded-full border border-white fixed left-4 top-20 z-10"
         >
-          <button className="btn btn-circle bg-base-100 text-secondary">
+          <a
+            href="mailto:naeemislam.hasan74@gmail.com"
+            title="Email"
+            className="btn btn-circle bg-base-100 text-secondary hover:bg-secondary hover:text-white transition"
+          >
             <FaEnvelope />
-          </button>
-          <button className="btn btn-circle bg-base-100 text-secondary">
+          </a>
+
+          <a
+            href="tel:+8801712499084"
+            title="Phone"
+            className="btn btn-circle bg-base-100 text-secondary hover:bg-secondary hover:text-white transition"
+          >
             <FaPhone />
-          </button>
-          <button className="btn btn-circle bg-base-100 text-secondary">
+          </a>
+
+          <a
+            href="https://github.com/naeem-web84"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="GitHub"
+            className="btn btn-circle bg-base-100 text-secondary hover:bg-secondary hover:text-white transition"
+          >
             <FaGithub />
-          </button>
-          <button className="btn btn-circle bg-base-100 text-secondary">
+          </a>
+
+          <a
+            href="https://drive.google.com/uc?export=download&id=1IIkukodcc21zazJIzD4gXQzF-QovmhJl"
+            download
+            title="Download Resume"
+            className="btn btn-circle bg-base-100 text-secondary hover:bg-secondary hover:text-white transition"
+          >
             <FaDownload />
-          </button>
+          </a>
         </motion.div>
       </div>
 
@@ -65,7 +87,6 @@ const Banner = () => {
         </div>
 
         <div className="grid grid-cols-12 gap-8 items-start">
-
           {/* PROFILE CARD */}
           <motion.div
             className="col-span-12 md:col-span-4 bg-base-100 border-l-4 border-secondary py-6 shadow-xl rounded-tl-[100px] rounded-br-[100px] border-2 border-r-white mx-auto md:mx-0"
@@ -107,9 +128,13 @@ const Banner = () => {
                 </div>
               </div>
 
-              <button className="btn mt-6 mb-3 bg-white text-primary border-none shadow-md flex items-center justify-center rounded-3xl">
+              <a
+                href="https://drive.google.com/uc?export=download&id=1IIkukodcc21zazJIzD4gXQzF-QovmhJl"
+                download
+                className="btn mt-6 mb-3 bg-white text-primary border-none shadow-md flex items-center justify-center rounded-3xl hover:bg-secondary hover:text-white transition"
+              >
                 <FaDownload className="mr-2" /> Download CV
-              </button>
+              </a>
             </div>
           </motion.div>
 
@@ -135,7 +160,7 @@ const Banner = () => {
             </p>
             <span className="text-sm text-secondary mb-2">&lt;/p&gt;</span>
 
-            <button className="btn w-max bg-secondary text-primary shadow">
+            <button className="btn w-max bg-secondary text-primary shadow hover:bg-white hover:text-black">
               Let’s Talk ✉️
             </button>
           </motion.div>
