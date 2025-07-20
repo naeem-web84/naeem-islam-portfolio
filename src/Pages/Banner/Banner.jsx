@@ -13,6 +13,7 @@ import {
 
 import { motion } from "framer-motion";
 import { Typewriter } from "react-simple-typewriter";
+import naeem from "../../assets/naeem_image.jpg"
 
 const Banner = () => {
   return (
@@ -96,9 +97,9 @@ const Banner = () => {
           >
             <div className="flex flex-col items-center text-center px-6">
               <img
-                src="https://i.ibb.co/Y2Z8LZf/dev-avatar.png"
+                src={naeem}
                 alt="Profile"
-                className="w-24 h-24 rounded-full border-4 border-secondary mb-4"
+                className="w-24 h-24 rounded-full border-4 object-cover border-secondary mb-4"
               />
               <h2 className="text-xl font-semibold text-accent">Md. Naeem Islam</h2>
               <p className="text-sm text-base-content mb-4">Full-Stack Developer</p>
