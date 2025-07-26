@@ -1,47 +1,45 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { FiPhone, FiMail, FiMapPin, FiMessageSquare } from "react-icons/fi";
 import { motion } from "framer-motion";
+import { useMutation } from "@tanstack/react-query";
 
 const fadeVariant = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
 };
 
-const ContactCard = () => {
-  const [formData, setFormData] = useState(null);
-  const [status, setStatus] = useState("");
+const sendEmail = async (formData) => {
+  const res = await fetch("https://portfolio-email-sender.vercel.app/sendEmail", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  });
 
-  // useEffect sends data to backend when formData changes
-  useEffect(() => {
-    if (formData) {
-      fetch("https://portfolio-email-sender.vercel.app/sendEmail", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setStatus("Message sent successfully!");
-          console.log(data);
-        })
-        .catch((err) => {
-          console.error(err);
-          setStatus("Something went wrong.");
-        });
-    }
-  }, [formData]);
+  if (!res.ok) throw new Error("Failed to send message");
+
+  return res.json();
+};
+
+const ContactCard = () => {
+  const {
+    mutate,
+    isLoading,
+    isError,
+    isSuccess,
+    error,
+    reset,
+  } = useMutation({ mutationFn: sendEmail });
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    reset();
     const form = e.target;
     const name = form.name.value;
     const subject = form.subject.value;
     const description = form.description.value;
-
-    const data = { name, subject, description };
-    setFormData(data);
+    mutate({ name, subject, description });
     form.reset();
   };
 
@@ -62,7 +60,6 @@ const ContactCard = () => {
           <h2 className="text-3xl sm:text-4xl font-bold text-secondary text-center">
             Get in Touch
           </h2>
-
           <div className="space-y-6 text-lg">
             <div className="flex items-center gap-4">
               <FiPhone className="text-2xl text-accent" />
@@ -93,45 +90,44 @@ const ContactCard = () => {
             Send a Message
           </h2>
 
-          {/* Name */}
-          <div>
-            <input
-              type="text"
-              name="name"
-              placeholder="Your Name"
-              className="w-full p-4 rounded-lg bg-primary border border-secondary text-base-content placeholder-accent focus:outline-none focus:ring-2 focus:ring-secondary transition"
-              required
-            />
-          </div>
+          <input
+            type="text"
+            name="name"
+            placeholder="Your Name"
+            className="w-full p-4 rounded-lg bg-primary border border-secondary text-base-content placeholder-accent focus:outline-none focus:ring-2 focus:ring-secondary transition"
+            required
+          />
+          <input
+            type="text"
+            name="subject"
+            placeholder="Subject"
+            className="w-full p-4 rounded-lg bg-primary border border-secondary text-base-content placeholder-accent focus:outline-none focus:ring-2 focus:ring-secondary transition"
+            required
+          />
+          <textarea
+            name="description"
+            rows="5"
+            placeholder="Your message"
+            className="w-full p-4 rounded-lg bg-primary border border-secondary text-base-content placeholder-accent focus:outline-none focus:ring-2 focus:ring-secondary transition"
+            required
+          ></textarea>
 
-          {/* Subject */}
-          <div>
-            <input
-              type="text"
-              name="subject"
-              placeholder="Subject"
-              className="w-full p-4 rounded-lg bg-primary border border-secondary text-base-content placeholder-accent focus:outline-none focus:ring-2 focus:ring-secondary transition"
-              required
-            />
-          </div>
-
-          {/* Message */}
-          <div>
-            <textarea
-              name="description"
-              rows="5"
-              placeholder="Your message"
-              className="w-full p-4 rounded-lg bg-primary border border-secondary text-base-content placeholder-accent focus:outline-none focus:ring-2 focus:ring-secondary transition"
-              required
-            ></textarea>
-          </div>
-
-          <button className="btn btn-secondary w-full text-primary font-bold hover:scale-105 transition-all">
-            Submit
+          <button
+            className="btn btn-secondary w-full text-primary font-bold hover:scale-105 transition-all"
+            disabled={isLoading}
+          >
+            {isLoading ? "Sending..." : "Submit"}
           </button>
 
-          {status && (
-            <p className="text-center text-sm text-accent pt-2">{status}</p>
+          {isSuccess && (
+            <p className="text-center text-sm text-green-400 pt-2">
+              Message sent successfully!
+            </p>
+          )}
+          {isError && (
+            <p className="text-center text-sm text-red-400 pt-2">
+              Failed to send message. Try again later.
+            </p>
           )}
         </motion.form>
       </div>
