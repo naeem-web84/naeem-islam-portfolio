@@ -3,6 +3,20 @@ import { FaReact, FaHtml5, FaCss3Alt, FaJs, FaNodeJs, FaGithub } from "react-ico
 import { SiTailwindcss, SiFirebase, SiExpress, SiMongodb } from "react-icons/si";
 import { motion } from 'framer-motion';
 
+// Motion variant for cards
+const cardVariant = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: (i) => ({
+    opacity: 1,
+    scale: 1,
+    transition: {
+      delay: i * 0.15,
+      duration: 0.5,
+      type: "spring"
+    }
+  }),
+};
+
 const skillsData = [
   { name: "HTML", icon: <FaHtml5 className="text-orange-500 text-5xl" /> },
   { name: "CSS", icon: <FaCss3Alt className="text-blue-500 text-5xl" /> },
@@ -18,17 +32,24 @@ const skillsData = [
 
 const Skills = () => {
   return (
-    <section className="min-h-screen flex flex-col justify-center mt-20 max-w-4xl mx-auto px-4">
-
+    <motion.section
+      className="min-h-screen flex flex-col justify-center mt-20 max-w-4xl mx-auto px-4"
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.8 }}
+    >
       {/* Top Decorative Line */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
         transition={{ delay: 0.5 }}
         className="hidden sm:flex flex-col items-center justify-center min-h-[100px] mx-auto mb-14 space-y-2"
       >
-        <div className="w-5 h-8 rounded-t-[30px] rounded-b-[30px] my-2 bg-black border border-secondary border-2 "><div className='w-1 h-2 bg-secondary ml-1.5 mt-1 rounded'></div></div>
-
+        <div className="w-5 h-8 rounded-t-[30px] rounded-b-[30px] my-2 bg-black border border-secondary border-2 ">
+          <div className='w-1 h-2 bg-secondary ml-1.5 mt-1 rounded'></div>
+        </div>
         <div className="w-1 h-1 bg-white rounded-full"></div>
         <div className="w-1 h-1 bg-white rounded-full"></div>
         <div className="w-1 h-1 bg-white rounded-full"></div>
@@ -40,17 +61,20 @@ const Skills = () => {
         <p className="text-accent">Technologies I work with</p>
       </div>
 
-      {/* Card container */}
       <div className="bg-base-primary rounded-lg shadow-xl p-8">
-        {/* Optional intro text inside the card */}
         <p className="text-base-100 mb-6 text-center font-medium text-lg">
           Here are some of my key skills:
         </p>
 
         <Marquee speed={50} pauseOnHover={true} gradient={false}>
           {skillsData.map((skill, i) => (
-            <div
+            <motion.div
               key={i}
+              custom={i}
+              variants={cardVariant}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
               className="flex flex-col items-center justify-center h-[200px] min-w-[120px] mx-6 cursor-pointer
                          transition-transform duration-300 hover:scale-110"
             >
@@ -62,11 +86,11 @@ const Skills = () => {
               <p className="mt-4 font-semibold text-sm text-base-secondary select-none">
                 {skill.name}
               </p>
-            </div>
+            </motion.div>
           ))}
         </Marquee>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

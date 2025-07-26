@@ -6,7 +6,6 @@ import naeemImage from "../../assets/width_522.jpeg";
 const AboutMe = () => {
   const handleAboutClick = () => {
     console.log("About Me clicked!");
-    // Optional: Navigate, open modal, etc.
   };
 
   return (
@@ -20,19 +19,22 @@ const AboutMe = () => {
       {/* Main Content */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.8 }}
         className="relative z-10 max-w-6xl mx-auto px-4 pt-10 text-base-content w-full md:mr-6"
       >
         {/* Top Decorative Line */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
           transition={{ delay: 0.5 }}
           className="hidden sm:flex flex-col items-center justify-center min-h-[100px] mx-auto mb-14 space-y-2"
         >
-          <div className="w-5 h-8 rounded-t-[30px] rounded-b-[30px] my-2 bg-black border border-secondary border-2 "><div className='w-1 h-2 bg-secondary ml-1.5 mt-1 rounded'></div></div>
-
+          <div className="w-5 h-8 rounded-t-[30px] rounded-b-[30px] my-2 bg-black border border-secondary border-2">
+            <div className='w-1 h-2 bg-secondary ml-1.5 mt-1 rounded'></div>
+          </div>
           <div className="w-1 h-1 bg-white rounded-full"></div>
           <div className="w-1 h-1 bg-white rounded-full"></div>
           <div className="w-1 h-1 bg-white rounded-full"></div>
@@ -44,7 +46,8 @@ const AboutMe = () => {
           {/* Text Section */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.8, delay: 0.8 }}
             className="md:w-1/2 text-left group hover:scale-[1.02] transition-all duration-300 hover:shadow-lg"
           >
@@ -65,7 +68,8 @@ const AboutMe = () => {
           {/* Image Section */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.8, delay: 1 }}
             className="md:w-1/2 flex justify-center"
           >

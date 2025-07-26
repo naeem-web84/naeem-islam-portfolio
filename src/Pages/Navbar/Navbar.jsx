@@ -41,8 +41,8 @@ const Navbar = () => {
                 onSetActive={() => setActive(link.to)}
                 className={`cursor-pointer btn btn-sm rounded-md px-4 font-semibold border transition-colors duration-200 ${
                   active === link.to
-                    ? "bg-blue-600 text-white border-blue-600"
-                    : "bg-white text-black border-gray-400 hover:bg-blue-600 hover:text-white hover:border-blue-600"
+                    ? "bg-secondary text-black border-secondary"
+                    : "bg-white text-black border-gray-400 hover:bg-secondary hover:text-black hover:border-secondary"
                 }`}
               >
                 {link.name}
@@ -56,7 +56,7 @@ const Navbar = () => {
       <div className="hidden lg:flex">
         <button
           onClick={downloadResume}
-          className="btn btn-sm border border-gray-400 bg-white text-black hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-colors duration-200"
+          className="btn btn-sm border border-gray-400 bg-white text-black hover:bg-secondary hover:text-black hover:border-secondary transition-colors duration-200"
         >
           Download Resume
         </button>
@@ -64,7 +64,7 @@ const Navbar = () => {
 
       {/* Mobile Menu: visible on md and below */}
       <div className="lg:hidden dropdown dropdown-end ml-auto">
-        <label tabIndex={0} className="btn btn-sm btn-ghost text-secondary hover:text-blue-600">
+        <label tabIndex={0} className="btn btn-sm btn-ghost text-secondary hover:text-secondary">
           {/* Hamburger Icon */}
           ☰
         </label>
@@ -83,8 +83,8 @@ const Navbar = () => {
                 onSetActive={() => setActive(link.to)}
                 className={`btn btn-sm text-left border w-full transition-colors duration-200 ${
                   active === link.to
-                    ? "bg-blue-600 text-white border-blue-600"
-                    : "bg-white text-black border-gray-400 hover:bg-blue-600 hover:text-white hover:border-blue-600"
+                    ? "bg-secondary text-black border-secondary"
+                    : "bg-white text-black border-gray-400 hover:bg-secondary hover:text-black hover:border-secondary"
                 }`}
               >
                 {link.name}
@@ -94,7 +94,7 @@ const Navbar = () => {
           <li>
             <button
               onClick={downloadResume}
-              className="btn btn-sm w-full border border-gray-400 bg-white text-black hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-colors duration-200"
+              className="btn btn-sm w-full border border-gray-400 bg-white text-black hover:bg-secondary hover:text-black hover:border-secondary transition-colors duration-200"
             >
               Resume
             </button>

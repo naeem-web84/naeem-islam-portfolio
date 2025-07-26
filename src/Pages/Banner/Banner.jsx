@@ -11,20 +11,30 @@ import {
   FaLink,
 } from "react-icons/fa";
 
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { Typewriter } from "react-simple-typewriter";
-import naeem from "../../assets/naeem_image.jpg"
+import { useRef } from "react";
+import naeem from "../../assets/naeem_image.jpg";
 
 const Banner = () => {
+  const sidebarRef = useRef(null);
+  const profileRef = useRef(null);
+  const introRef = useRef(null);
+
+  const sidebarInView = useInView(sidebarRef, { once: true, margin: "-50px" });
+  const profileInView = useInView(profileRef, { once: true, margin: "-50px" });
+  const introInView = useInView(introRef, { once: true, margin: "-50px" });
+
   return (
     <section className="min-h-screen text-base-content bg-base-100 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-12 gap-6">
 
-      {/* LEFT SIDEBAR ICONS - hidden below lg */}
+      {/* LEFT SIDEBAR ICONS */}
       <div className="hidden lg:flex col-span-1 relative">
         <motion.div
+          ref={sidebarRef}
           initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
+          animate={sidebarInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.3 }}
           className="bg-primary p-2 flex flex-col gap-4 items-center justify-start rounded-full border border-white fixed left-4 top-20 z-10"
         >
           <a
@@ -34,7 +44,6 @@ const Banner = () => {
           >
             <FaEnvelope />
           </a>
-
           <a
             href="tel:+8801712499084"
             title="Phone"
@@ -42,7 +51,6 @@ const Banner = () => {
           >
             <FaPhone />
           </a>
-
           <a
             href="https://github.com/naeem-web84"
             target="_blank"
@@ -52,7 +60,6 @@ const Banner = () => {
           >
             <FaGithub />
           </a>
-
           <a
             href="https://drive.google.com/uc?export=download&id=1IIkukodcc21zazJIzD4gXQzF-QovmhJl"
             download
@@ -67,10 +74,10 @@ const Banner = () => {
       {/* MAIN CONTENT */}
       <div className="col-span-12 lg:col-span-11 space-y-6 mt-6 lg:ml-8">
 
-        {/* Title */}
+        {/* Heading */}
         <div className="text-center">
           <motion.h1
-            className="text-4xl md:text-5xl font-bold text-secondary mb-2"
+            className="text-4xl md:text-5xl font-bold text-white mb-2"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 2 }}
@@ -90,10 +97,11 @@ const Banner = () => {
         <div className="grid grid-cols-12 gap-8 items-start">
           {/* PROFILE CARD */}
           <motion.div
-            className="col-span-12 md:col-span-4 bg-base-100 border-l-4 border-secondary py-6 shadow-xl rounded-tl-[100px] rounded-br-[100px] border-2 border-r-white mx-auto md:mx-0"
+            ref={profileRef}
             initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 1 }}
+            animate={profileInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="col-span-12 md:col-span-4 bg-base-100 border-l-4 border-secondary py-6 shadow-xl rounded-tl-[100px] rounded-br-[100px] border-2 border-r-white mx-auto md:mx-0"
           >
             <div className="flex flex-col items-center text-center px-6">
               <img
@@ -141,10 +149,11 @@ const Banner = () => {
 
           {/* INTRO SECTION */}
           <motion.div
-            className="col-span-12 md:col-span-8 flex flex-col gap-2 max-w-2xl mx-auto md:mx-0 px-4 md:px-0 mt-3"
+            ref={introRef}
             initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 1.2 }}
+            animate={introInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="col-span-12 md:col-span-8 flex flex-col gap-2 max-w-2xl mx-auto md:mx-0 px-4 md:px-0 mt-3"
           >
             <span className="text-sm text-secondary">&lt;h1&gt;</span>
             <h1 className="text-4xl sm:text-5xl font-bold leading-tight">
