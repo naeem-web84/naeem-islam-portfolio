@@ -1,46 +1,31 @@
-import React from "react";
+import React, { useRef } from "react";
 import { FiPhone, FiMail, FiMapPin, FiMessageSquare } from "react-icons/fi";
 import { motion } from "framer-motion";
-import { useMutation } from "@tanstack/react-query";
+import emailjs from "@emailjs/browser";
 
 const fadeVariant = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
 };
 
-const sendEmail = async (formData) => {
-  const res = await fetch("https://portfolio-email-sender.vercel.app/sendEmail", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(formData),
-  });
-
-  if (!res.ok) throw new Error("Failed to send message");
-
-  return res.json();
-};
-
 const ContactCard = () => {
-  const {
-    mutate,
-    isLoading,
-    isError,
-    isSuccess,
-    error,
-    reset,
-  } = useMutation({ mutationFn: sendEmail });
+  const formRef = useRef();
 
-  const handleSubmit = (e) => {
+  const sendEmail = (e) => {
     e.preventDefault();
-    reset();
-    const form = e.target;
-    const name = form.name.value;
-    const subject = form.subject.value;
-    const description = form.description.value;
-    mutate({ name, subject, description });
-    form.reset();
+
+    emailjs
+      .sendForm("service_yllgwlm", "template_twb9t2u", formRef.current, {
+        publicKey: "SZmNe0CvJ3V0ooDEG",
+      })
+      .then(
+        () => {
+          console.log("SUCCESS!");
+        },
+        (error) => {
+          console.log("FAILED...", error.text);
+        }
+      );
   };
 
   return (
@@ -82,9 +67,10 @@ const ContactCard = () => {
 
         {/* Right: Contact Form */}
         <motion.form
+          ref={formRef}
           variants={fadeVariant}
           className="bg-base-100 p-8 rounded-xl shadow-md space-y-6"
-          onSubmit={handleSubmit}
+          onSubmit={sendEmail}
         >
           <h2 className="text-3xl sm:text-4xl font-bold text-secondary text-center">
             Send a Message
@@ -113,22 +99,11 @@ const ContactCard = () => {
           ></textarea>
 
           <button
+            type="submit"
             className="btn btn-secondary w-full text-primary font-bold hover:scale-105 transition-all"
-            disabled={isLoading}
           >
-            {isLoading ? "Sending..." : "Submit"}
+            Submit
           </button>
-
-          {isSuccess && (
-            <p className="text-center text-sm text-green-400 pt-2">
-              Message sent successfully!
-            </p>
-          )}
-          {isError && (
-            <p className="text-center text-sm text-red-400 pt-2">
-              Failed to send message. Try again later.
-            </p>
-          )}
         </motion.form>
       </div>
     </motion.section>
